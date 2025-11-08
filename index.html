@@ -15,7 +15,7 @@
         min-height: 100dvh;
         display: grid;
         place-items: center;
-        padding: 24px;
+        padding: 16px;
         background: radial-gradient(1200px 800px at 10% 10%, #1a1a1a, #0b0b0b) fixed;
       }
 
@@ -29,14 +29,14 @@
       /* Contenedor del slider a pantalla completa */
       .slider {
         position: relative;
-        width: clamp(320px, 92vw, 600px); /* responsive, tipo tarjeta */
-        aspect-ratio: 4 / 5;              /* formato vertical estilo IG */
+        width: min(96vw, 900px);   /* más grande en pantallas grandes */
+        height: min(94dvh, 1200px); /* aprovecha la altura disponible */
         overflow: hidden;
         background: linear-gradient(180deg, #0e0e0e, #111);
         border: 1px solid rgba(255,255,255,0.08);
         border-radius: 16px;
         box-shadow:
-          0 10px 30px rgba(0,0,0,0.6),
+          0 20px 60px rgba(0,0,0,0.6),
           0 1px 0 rgba(255,255,255,0.06) inset;
       }
 
@@ -128,9 +128,18 @@
       #s2:checked ~ .slider .dots label[for="s2"] { background: #fff; }
 
       /* Ajustes móviles */
-      @media (max-width: 480px) {
-        .arrow { width: 36px; height: 36px; }
-        .dots { gap: 8px; }
+      @media (max-width: 600px) {
+        body { padding: 0; }
+        .slider {
+          width: 100vw;               /* ocupa toda la pantalla en móvil */
+          height: 100dvh;             /* máximo tamaño para legibilidad */
+          border-radius: 0;
+          border: none;
+          box-shadow: none;
+        }
+        .arrow { display: none; }     /* deja swipe + puntos para más área útil */
+        .dots { gap: 10px; }
+        .dots label { width: 10px; height: 10px; }
       }
 
       /* Preferencias de reducción de movimiento */
