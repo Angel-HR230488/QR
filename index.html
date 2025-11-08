@@ -26,7 +26,8 @@
       .slider {
         position: relative;
         width: 100vw;
-        height: 100vh;
+        height: 100vh;   /* fallback */
+        height: 100dvh;  /* mejor en móviles (iOS/Android) */
         overflow: hidden;
         background: #000;
       }
@@ -96,7 +97,7 @@
       /* Puntos (indicadores) */
       .dots {
         position: absolute;
-        bottom: 20px;
+        bottom: calc(16px + env(safe-area-inset-bottom, 0));
         left: 50%;
         transform: translateX(-50%);
         display: flex;
@@ -116,16 +117,10 @@
       #s1:checked ~ .slider .dots label[for="s1"] { background: #fff; }
       #s2:checked ~ .slider .dots label[for="s2"] { background: #fff; }
 
-      /* Pequeño hint de arrastre (opcional, decorativo) */
-      .hint {
-        position: absolute;
-        bottom: 64px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 12px;
-        color: rgba(255,255,255,0.7);
-        letter-spacing: .3px;
-        user-select: none;
+      /* Ajustes móviles */
+      @media (max-width: 480px) {
+        .arrow { width: 36px; height: 36px; }
+        .dots { gap: 8px; }
       }
 
       /* Preferencias de reducción de movimiento */
@@ -161,7 +156,7 @@
         <label for="s2" aria-label="Ir a la segunda"></label>
       </div>
 
-      <div class="hint">Desliza o usa las flechas</div>
+      
     </div>
 
     <script>
