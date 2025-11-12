@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Califica Salsa Aguacanero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos de Diseño */
+        body { font-family: 'Montserrat', sans-serif; background-color: #f7fee7; }
+        h1, h2, h3 { font-family: 'Poppins', sans-serif; }
+        .salsa-header-bg { background-color: #A0522D; }
+        .star-rating input { display: none; }
+        .star-rating label {
+            font-size: 3rem; color: #e5e7eb; cursor: pointer; transition: all 0.2s;
+        }
+        .star-rating input:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #84cc16; transform: scale(1.1);
+        }
+        .star-rating {
+            display: flex; flex-direction: row-reverse; justify-content: center; gap: 0.5rem;
+        }
+
+        /* Menú de navegación (igual concepto que en index) */
+        .site-nav a {
+            display: inline-block;
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            border: 1px solid rgba(248, 250, 252, 0.35);
+            text-decoration: none;
+            color: #fefce8;
+            background-color: rgba(15, 23, 42, 0.18);
+            font-weight: 600;
+            font-size: 0.75rem;
+            transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+        }
+        .site-nav a:hover {
+            background-color: rgba(250, 204, 21, 0.95);
+            color: #422006;
+            border-color: rgba(15, 23, 42, 0.25);
+            transform: translateY(-1px);
+        }
+        .site-nav .nav-pill-active {
+            background-color: #facc15;
+            color: #422006;
+            border-color: rgba(15, 23, 42, 0.35);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-lime-50">
+
+    <!-- HEADER CON MENÚ -->
+    <header class="salsa-header-bg text-white shadow-md pt-4 pb-10">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-6">
+                <div class="font-bold tracking-wide uppercase text-sm md:text-base">
+                    Salsa Aguacanero
+                </div>
+                <nav class="site-nav flex gap-2 text-xs md:text-sm">
+                    <a href="index.html" class="nav-pill">Información</a>
+                    <a href="votos.html" class="nav-pill nav-pill-active">Calificar</a>
+                </nav>
+            </div>
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-2 tracking-tight">Salsa Aguacanero</h1>
+                <p class="text-lg opacity-90 font-medium">Tu opinión importa</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 pb-12 max-w-lg -mt-10">
+
+        <div class="bg-white rounded-xl shadow-lg p-6 sm:p-8 relative z-10">
+            <form id="ratingForm" class="space-y-6">
+                <div>
+                    <label for="name" class="block text-sm font-semibold text-gray-700 mb-1">Tu Nombre</label>
+                    <input type="text" id="name" placeholder="Opcional"
+                           class="w-full px-4 py-3 bg-gray-50 rounded-lg border-2 border-transparent focus:border-lime-500 focus:bg-white outline-none transition font-medium">
+                </div>
+
+                <div class="text-center py-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">¿Cuántas estrellas?</label>
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 Estrellas">★</label>
+                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 Estrellas">★</label>
+                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 Estrellas">★</label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 Estrellas">★</label>
+                        <input type="radio" id="star1" name="rating" value="1" required /><label for="star1" title="1 Estrella">★</label>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="comment" class="block text-sm font-semibold text-gray-700 mb-1">Comentario</label>
+                    <textarea id="comment" rows="2" placeholder="¿Muy rica? ¿Picante?"
+                              class="w-full px-4 py-3 bg-gray-50 rounded-lg border-2 border-transparent focus:border-lime-500 focus:bg-white outline-none transition resize-none font-medium"></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn"
+                        class="w-full bg-lime-600 hover:bg-lime-700 text-white font-bold py-4 px-6 rounded-xl transition active:scale-95 flex items-center justify-center text-lg shadow-md hover:shadow-lg">
+                    Enviar Calificación
+                </button>
+            </form>
+
+             <div id="successMessage" class="hidden text-center py-10">
+                <div class="text-6xl mb-4">🥑</div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">¡Gracias!</h3>
+                <p class="text-gray-600 mb-6">Tu voto ha sido registrado.</p>
+                <button id="voteAgainBtn" class="text-lime-600 font-semibold hover:underline">
+                    Calificar otra vez
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center py-6 text-gray-500 text-sm mt-8 opacity-60">
+        © <span id="year"></span> Salsa Aguacanero
+    </footer>
+
+    <script type="module">
+       // MANTÉN ESTOS IMPORTS CON URL COMPLETA (NO LOS BORRES)
+       import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getDatabase, ref, push, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBqu4PbITJhf5A1i1qOKgAb5kJrZCbZTY0",
+            authDomain: "votos-ad55c.firebaseapp.com",
+            databaseURL: "https://votos-ad55c-default-rtdb.firebaseio.com", 
+            projectId: "votos-ad55c",
+            storageBucket: "votos-ad55c.firebasestorage.app",
+            messagingSenderId: "952113141563",
+            appId: "1:952113141563:web:e5f37a6e703867ab5dc91e"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+        
+        const VOTES_REF = ref(db, 'salsa_votes'); 
+
+        let currentUser = null;
+
+        signInAnonymously(auth).catch((error) => console.error("Auth Error:", error));
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+            }
+        });
+
+        const ratingForm = document.getElementById('ratingForm');
+        const successMessage = document.getElementById('successMessage');
+        const submitBtn = document.getElementById('submitBtn');
+
+        ratingForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!currentUser) {
+                alert("Estableciendo conexión segura...");
+                return;
+            }
+
+            const nameStr = document.getElementById('name').value.trim() || "Anónimo";
+            const commentStr = document.getElementById('comment').value.trim();
+            const ratingVal = document.querySelector('input[name="rating"]:checked')?.value;
+
+            if (!ratingVal) {
+                alert("Por favor selecciona una calificación.");
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `Enviando...`;
+
+            try {
+                await push(VOTES_REF, {
+                    name: nameStr,
+                    rating: parseInt(ratingVal),
+                    comment: commentStr,
+                    timestamp: serverTimestamp(),
+                    userId: currentUser.uid
+                });
+
+                ratingForm.classList.add('hidden');
+                successMessage.classList.remove('hidden');
+                ratingForm.reset();
+                const currentRating = document.querySelector('input[name="rating"]:checked');
+                if (currentRating) currentRating.checked = false;
+
+            } catch (error) {
+                console.error("Error al guardar en RTDB:", error);
+                alert("Hubo un problema al enviar. Intenta de nuevo.");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `Enviar Calificación`;
+            }
+        });
+
+        document.getElementById('voteAgainBtn').addEventListener('click', () => {
+            successMessage.classList.add('hidden');
+            ratingForm.classList.remove('hidden');
+        });
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

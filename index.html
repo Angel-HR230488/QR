@@ -4,15 +4,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Salsa Aguacanero</title>
-    <meta name="theme-color" content="#050608" />
+    <meta name="theme-color" content="#A0522D" />
     <style>
       :root {
-        color-scheme: dark;
-        --bg: #050608;
-        --card-bg: #0b0b0b;
-        --border-soft: rgba(255, 255, 255, 0.18);
-        --shadow-soft: 0 16px 32px rgba(0, 0, 0, 0.7);
-        --text-soft: rgba(255, 255, 255, 0.8);
+        --bg-page: #f7fee7; /* similar a bg-lime-50 */
+        --header-bg: #a0522d;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+        --text-main: #111827;
+        --text-soft: #6b7280;
+        --accent: #65a30d;
       }
 
       * {
@@ -29,119 +31,341 @@
         font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
           Cantarell, "Noto Sans", Helvetica, Arial, "Apple Color Emoji",
           "Segoe UI Emoji";
-        background:
-          radial-gradient(circle at 0% 0%, #162219 0, transparent 45%),
-          radial-gradient(circle at 100% 100%, #141420 0, transparent 45%),
-          var(--bg);
-        color: #fff;
+        background-color: var(--bg-page);
+        color: var(--text-main);
       }
+
+      /* HEADER / MENÚ */
+
+      .site-header {
+        background-color: var(--header-bg);
+        color: #f9fafb;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .site-header-inner {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 12px 16px 16px;
+      }
+
+      .header-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+
+      .brand-name {
+        font-weight: 700;
+        font-size: 0.9rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .site-nav {
+        display: flex;
+        gap: 8px;
+      }
+
+      .site-nav a {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+        border-radius: 999px;
+        text-decoration: none;
+        border: 1px solid rgba(248, 250, 252, 0.35);
+        color: #fefce8;
+        background-color: rgba(15, 23, 42, 0.18);
+        font-weight: 600;
+        transition: background-color 0.15s ease, color 0.15s ease,
+          border-color 0.15s ease, transform 0.1s ease;
+      }
+
+      .site-nav a:hover {
+        background-color: rgba(250, 204, 21, 0.95);
+        color: #422006;
+        border-color: rgba(15, 23, 42, 0.25);
+        transform: translateY(-1px);
+      }
+
+      .site-nav .active {
+        background-color: #facc15;
+        color: #422006;
+        border-color: rgba(15, 23, 42, 0.35);
+      }
+
+   
+
+      /* LAYOUT PRINCIPAL */
 
       main {
-        min-height: 100dvh;
-        padding: 16px;
+        min-height: calc(100dvh - 70px);
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 0 16px 24px;
       }
 
-      .wrapper {
+      .page {
         width: 100%;
-        max-width: 480px; /* ancho cómodo para móvil */
-      }
-
-      h1 {
-        margin: 0 0 4px;
-        font-size: 1.1rem;
-      }
-
-      p {
-        margin: 0;
-        font-size: 0.85rem;
-        color: var(--text-soft);
-      }
-
-      .cards {
-        margin-top: 12px;
-        display: flex;
-        flex-direction: column;
+        max-width: 960px;
+        margin: -40px auto 24px;
+        display: grid;
+        grid-template-columns: minmax(0, 2fr);
         gap: 16px;
       }
 
       .card {
-        background: var(--card-bg);
+        background-color: var(--card-bg);
         border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        box-shadow: var(--shadow-soft);
-        overflow: hidden;
+        border: 1px solid var(--card-border);
+        box-shadow: var(--card-shadow);
+        padding: 18px 16px 20px;
       }
 
-      .card img {
+      .card + .card {
+        margin-top: 4px;
+      }
+
+      .card h1 {
+        margin: 0 0 4px;
+        font-size: 1.4rem;
+      }
+
+      .card p.lead {
+        margin: 0 0 12px;
+        font-size: 0.9rem;
+        color: var(--text-soft);
+      }
+
+      .info-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .info-card figure {
+        margin: 0;
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+      }
+
+      .info-card img {
         width: 100%;
         height: auto;
         display: block;
       }
 
-      .caption {
-        padding: 8px 12px 10px;
+      .info-card figcaption {
+        padding: 8px 10px 10px;
         font-size: 0.8rem;
-        color: var(--text-soft);
         text-align: center;
+        color: var(--text-soft);
+        background-color: #f9fafb;
       }
 
-      /* Que se vea bien en pantallas muy chicas */
-      @media (max-width: 480px) {
-        main {
-          padding: 12px;
+      /* REDES SOCIALES */
+
+      .social-card h2 {
+        margin: 0 0 8px;
+        font-size: 1.05rem;
+      }
+
+      .social-card p {
+        margin: 0 0 12px;
+        font-size: 0.85rem;
+        color: var(--text-soft);
+      }
+
+      .social-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .social-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        background-color: #f9fafb;
+        text-decoration: none;
+        color: inherit;
+        transition: background-color 0.15s ease, transform 0.1s ease,
+          box-shadow 0.15s ease;
+      }
+
+      .social-item:hover {
+        background-color: #ecfccb;
+        transform: translateY(-1px);
+        box-shadow: 0 10px 25px rgba(101, 163, 13, 0.25);
+      }
+
+      .social-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        object-fit: cover;
+        background-color: #111827;
+      }
+
+      .social-label {
+        font-size: 0.8rem;
+        color: var(--text-soft);
+      }
+
+      .social-handle {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      footer {
+        text-align: center;
+        font-size: 0.75rem;
+        color: #9ca3af;
+        margin-bottom: 10px;
+      }
+
+      @media (min-width: 768px) {
+        .page {
+          grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+          align-items: flex-start;
         }
 
-        .card {
-          border-radius: 12px;
+        .social-card {
+          align-self: stretch;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .site-header-inner {
+          padding-inline: 12px;
+        }
+
+        .header-top {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .page {
+          margin-top: -21px;
         }
       }
     </style>
   </head>
   <body>
+    <header class="site-header">
+      <div class="site-header-inner">
+        <div class="header-top">
+          <div class="brand-name">Salsa Aguacanero</div>
+          <nav class="site-nav">
+            <a href="index.html" class="active">Información</a>
+            <a href="votos.html">Calificar</a>
+          </nav>
+        </div>
+       
+    </header>
+
     <main>
-      <section class="wrapper">
-        <header>
+      <section class="page">
+        <!-- Tarjeta principal con imágenes -->
+        <article class="card info-card">
           <h1>Salsa Aguacanero</h1>
-          <p>Visualiza la presentación y la información nutricional.</p>
-        </header>
+          <p class="lead">
+            Visualiza cómo se ve el producto en su envase y consulta la etiqueta
+            nutricional completa.
+          </p>
 
-        <section class="cards">
-          <!-- 1. Foto de la salsa -->
-          <figure class="card">
-            <!-- si quieren verla aún más grande, al tocar se abre solo la imagen -->
-            <a href="img/Salsa.jpeg" target="_blank" rel="noopener">
-              <img
-                src="img/Salsa.jpeg"
-                alt="Presentación de la Salsa Aguacanero"
-              />
-            </a>
-            <figcaption class="caption">
-              Presentación del producto.
-              <br />
-              Toca la imagen para verla a pantalla completa.
-            </figcaption>
-          </figure>
+          <div class="info-grid">
+            <figure>
+              <a href="img/Salsa.jpeg" target="_blank" rel="noopener">
+                <img
+                  src="img/Salsa.jpeg"
+                  alt="Presentación de la Salsa Aguacanero"
+                />
+              </a>
+              <figcaption>
+                Presentación del producto (frasco de 200&nbsp;mL).
+                <br />
+                Toca la imagen para verla a pantalla completa.
+              </figcaption>
+            </figure>
 
-          <!-- 2. Tabla nutricional -->
-          <figure class="card">
-            <a href="img/Tabla.jpeg" target="_blank" rel="noopener">
+            <figure>
+              <a href="img/Tabla.jpeg" target="_blank" rel="noopener">
+                <img
+                  src="img/Tabla.jpeg"
+                  alt="Etiqueta con la información nutricional de la Salsa Aguacanero"
+                />
+              </a>
+              <figcaption>
+                Información nutricional por porción.
+                <br />
+                Toca la imagen para ampliarla y leer cada dato.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- Tarjeta de redes sociales -->
+        <aside class="card social-card">
+          <h2>Encuéntranos en redes</h2>
+          <p>
+            Comparte tu experiencia y mantente al tanto de novedades y
+            promociones de <strong>Salsa Aguacanero</strong>.
+          </p>
+
+          <div class="social-list">
+            <a
+              href="https://www.instagram.com/salsaaguacanero?igsh=c2lqc3Y2ZWdzNzdp"
+              target="_blank"
+              rel="noopener"
+              class="social-item"
+            >
               <img
-                src="img/Tabla.jpeg"
-                alt="Etiqueta con la información nutricional de la Salsa Aguacanero"
+                src="img/instagram-logo.jpg"
+                alt="Logo de Instagram"
+                class="social-icon"
               />
+              <div>
+                <div class="social-label">Instagram</div>
+                <div class="social-handle">@salsaaguacanero</div>
+              </div>
             </a>
-            <figcaption class="caption">
-              Información nutricional completa.
-              <br />
-              Toca la imagen para ampliarla y leer cada dato.
-            </figcaption>
-          </figure>
-        </section>
+
+            <a
+              href="https://www.tiktok.com/@salsa.aguacanero?_r=1&_t=ZM-91ICZ0DlmHM"
+              target="_blank"
+              rel="noopener"
+              class="social-item"
+            >
+              <img
+                src="img/tiktok-logo.png"
+                alt="Logo de TikTok"
+                class="social-icon"
+              />
+              <div>
+                <div class="social-label">TikTok</div>
+                <div class="social-handle">@salsa.aguacanero</div>
+              </div>
+            </a>
+          </div>
+        </aside>
       </section>
     </main>
+
+    <footer>
+      © <span id="year"></span> Salsa Aguacanero
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>
